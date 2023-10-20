@@ -6,28 +6,36 @@ const Command = require('../command.js');
 
 describe("Message class", function() {
     it('throws an error if a name is NOT passed into the constructor as the first parameter', function() {
-        function createMessageWithoutName() {
-          new Message();
-        }
-    
-        // Use expect().toThrow() to check if an error is thrown 
-        expect(createMessageWithoutName).toThrowError('Name is required.');
-      });
-
-      it('constructor sets name', function() {
-        function createMessageWithName() {
-            const name = 'Test Message';
-            const message = new Message(name);
-            return message.name;
-
-        }
-
-        expect(createMessageWithName()).toBe('Test Message');
+      function createMessageWithoutName() {
+        new Message();
+      }
+  
+      // Use expect().toThrow() to check if an error is thrown 
+      expect(createMessageWithoutName).toThrowError('Name is required.');
     });
-
-        it('contains a commands array passed into the constructor as the 2nd argument', function() {
-            function
-        })
-
+  
+    it('constructor sets name', function() {
+      function createMessageWithName() {
+        const name = 'Test Message';
+        const message = new Message(name);
+        return message.name;
+      }
+  
+      expect(createMessageWithName()).toBe('Test Message');
     });
-});
+  
+    it('contains a commands array passed into the constructor as the 2nd argument', function() {
+      function createMessageWithCommands() {
+        const commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
+        const message = new Message('Test Message', commands);
+        return message.commands;
+      }
+  
+      // Use expect().toEqual() to check if the commands property is set as expected
+      expect(createMessageWithCommands()).toEqual([
+        new Command('MODE_CHANGE', 'LOW_POWER'),
+        new Command('STATUS_CHECK')
+      ]);
+    });
+  });
+  
